@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.silassefas.SocialSpring.domain.Post;
 import com.silassefas.SocialSpring.domain.User;
 import com.silassefas.SocialSpring.dto.UserDTO;
 import com.silassefas.SocialSpring.services.UserService;
@@ -60,6 +61,12 @@ public class UserResource {
 		object.setId(id);
 		object = service.update(object);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping(value = "/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+		User object = service.findById(id);
+		return ResponseEntity.ok().body(object.getPost());
 	}
 	
 	
