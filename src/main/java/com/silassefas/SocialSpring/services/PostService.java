@@ -1,5 +1,6 @@
 package com.silassefas.SocialSpring.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,11 @@ public class PostService {
 		
 	public List<Post> findByTitle(String text){
 		return repository.findByTitleContainingIgnoreCase(text);
+	}
+	
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate){
+		maxDate = new Date(maxDate.getTime() + 24*60*60*1000); //adcicionando mais um dia a data maxima para considera as 24hrs do dia informado
+		return repository.fullSearch(text, minDate, maxDate);
 	}
 
 
